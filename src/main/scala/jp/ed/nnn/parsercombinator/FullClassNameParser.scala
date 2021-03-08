@@ -9,8 +9,11 @@ object FullClassNameParser extends MyFirstCombinator {
   def className: Parser[String] = oneOf('A' to 'D')
 
   def apply(input: String): ParseResult[FullClassName] =
-    map(combine(combine(combine(grade, s("年")), className), s("組")), {
-      t: (((String, String), String), String) => FullClassName(t._1._1._1, t._1._2)
-    })(input)
+    map(
+      combine(combine(combine(grade, s("年")), className), s("組")),
+      { t: (((String, String), String), String) =>
+        FullClassName(t._1._1._1, t._1._2)
+      }
+    )(input)
 
 }
